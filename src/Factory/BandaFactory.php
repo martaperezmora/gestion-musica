@@ -46,12 +46,22 @@ final class BandaFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $generos = [
+            'heavy metal',
+            'power metal',
+            'death metal',
+            'black metal',
+            'melodic black metal',
+            'doom metal',
+            'folk metal',
+            'melodeath'
+        ];
         return [
-            'activo' => self::faker()->boolean(),
-            'anioCreacion' => self::faker()->randomNumber(),
-            'genero' => self::faker()->text(),
-            'nombre' => self::faker()->text(255),
-            'pais' => self::faker()->text(50),
+            'activo' => self::faker()->boolean(80),
+            'anioCreacion' => self::faker()->numberBetween(1990, 2023),
+            'genero' => self::faker()->randomElement($generos),
+            'nombre' => self::faker()->text(10),
+            'pais' => self::faker()->country()
         ];
     }
 
