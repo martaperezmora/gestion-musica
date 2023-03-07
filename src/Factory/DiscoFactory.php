@@ -46,10 +46,16 @@ final class DiscoFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $tipo = [
+            'álbum',
+            'EP',
+            'Sencillo'
+        ];
+
         return [
-            'anioLanzamiento' => self::faker()->randomNumber(),
-            'tipo' => self::faker()->text(10),
-            'titulo' => self::faker()->text(255),
+            'anioLanzamiento' => self::faker()->numberBetween(1990, 2023),
+            'tipo' => self::faker()->randomElement($tipo),
+            'titulo' => self::faker()->text(20),
         ];
     }
 
