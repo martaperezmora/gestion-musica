@@ -47,8 +47,9 @@ final class CancionFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'duracion' => null, // TODO add TIME type manually
-            'titulo' => self::faker()->text(255),
+            'duracion' => self::faker()->time('i:s'),
+            'titulo' => self::faker()->text(20),
+            'letra' => self::faker()->paragraph()
         ];
     }
 
