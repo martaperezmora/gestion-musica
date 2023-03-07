@@ -26,8 +26,8 @@ class Cancion
     private $titulo;
 
     /**
-     * @ORM\Column(type="time")
-     * @var \DateTimeInterface
+     * @ORM\Column(type="string", length=5)
+     * @var string
      */
     private $duracion;
 
@@ -80,18 +80,18 @@ class Cancion
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return string
      */
-    public function getDuracion(): ?\DateTimeInterface
+    public function getDuracion(): string
     {
         return $this->duracion;
     }
 
     /**
-     * @param \DateTimeInterface $duracion
+     * @param string $duracion
      * @return Cancion
      */
-    public function setDuracion(?\DateTimeInterface $duracion): Cancion
+    public function setDuracion(string $duracion): Cancion
     {
         $this->duracion = $duracion;
         return $this;

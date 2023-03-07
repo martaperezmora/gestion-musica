@@ -57,7 +57,7 @@ class Artista
     private $esCompositor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Banda", inversedBy="miembros")
+     * @ORM\ManyToMany(targetEntity="Banda", mappedBy="miembros")
      * @var Banda[]|Collection
      */
     private $bandas;
