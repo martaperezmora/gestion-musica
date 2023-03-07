@@ -47,10 +47,13 @@ final class ArtistaFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'esCompositor' => self::faker()->boolean(),
-            'fechaNacimiento' => self::faker()->dateTime(),
-            'nombre' => self::faker()->text(255),
-            'pais' => self::faker()->text(255),
+            'esCompositor' => self::faker()->boolean(30),
+            'fechaNacimiento' => self::faker()->dateTimeBetween('-50 years', '-18 years'),
+            'nombre' => self::faker()->firstName(),
+            'apellidos' => self::faker()->lastName() . ' ' . self::faker()->lastName(),
+            'pais' => self::faker()->country(),
+            'alias' => self::faker()->boolean(60) ? self::faker()->word() : null,
+
         ];
     }
 
