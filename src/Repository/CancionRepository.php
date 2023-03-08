@@ -47,4 +47,14 @@ class CancionRepository extends ServiceEntityRepository
         }
     }
 
+    public function listarCanciones(){
+        return $this->createQueryBuilder('c')
+            ->addSelect('d', 'b')
+            ->join('c.disco', 'd')
+            ->join('d.banda', 'b')
+            ->orderBy('c.titulo')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
