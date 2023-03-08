@@ -1,0 +1,56 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Artistas</h1>
+
+    {% for mensaje in app.flashes('error') %}
+        <div>
+            {{ mensaje }}
+        </div>
+    {% endfor %}
+    {% for mensaje in app.flashes('exito') %}
+        <div>
+            {{ mensaje }}
+        </div>
+    {% endfor %}
+
+    <a href="{{ path('artista_listar') }}" class="btn btn-primary">nuevo</a>
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Fecha Nacimiento</th>
+            <th>Pais</th>
+            <th>Compositor</th>
+            <th>Bandas</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for artista in artistas %}
+            <tr>
+                <td>{{ artista.id }}</td>
+                <td>{{ artista.nombre }}</td>
+                <td>{{ artista.apellidos }}</td>
+                <td>{{ artista.fechaNacimiento | date('d/m/Y') }}</td>
+                <td>{{ artista.pais }}</td>
+                <td>{% if artista.esCompositor %}SÍ{% else %}NO{% endif %}</td>
+                <td>
+                    {% for banda in artista.bandas %}
+                    {{ banda }}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('artista_listar', {id : artista.id}) }}" class="btn btn-primary">editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <th colspan="5">No hay artistas</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
