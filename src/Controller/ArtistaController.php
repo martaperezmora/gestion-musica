@@ -56,4 +56,25 @@ class ArtistaController extends AbstractController
             'form' => $formulario->createView()
         ]);
     }
+
+    /**
+     * @Route("artista/eliminar/{id}", name="artista_eliminar")
+     */
+    public function eliminarArtista(Request $request, Artista $artista, ArtistaRepository $artistaRepository) : Response
+    {
+        if($request->getMethod() == 'POST' ){
+            try{
+                $artistaRepository->remove($artista);
+                $this->addFlash('exito', 'artista borrado');
+                return $this->redirect('../../artista/listar');
+            } catch (\Exception $e){
+                $this->addFlash('error', 'no se pudo borrar');
+                return $this->redirect('../../artista/listar');
+            }
+        }
+
+        return $this->render('artista/eliminar.html.twig', [
+            'artista' => $artista
+        ]);
+    }
 }
