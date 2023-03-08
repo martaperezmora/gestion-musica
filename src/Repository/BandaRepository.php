@@ -56,4 +56,14 @@ class BandaRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function save(Banda $banda){
+        $this->getEntityManager()->flush($banda);
+    }
+
+    public function new() : Banda
+    {
+        $banda = new Banda();
+        $this->getEntityManager()->persist($banda);
+        return $banda;
+    }
 }

@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    {% for mensaje in app.flashes('error') %}
+        <div>
+            {{ mensaje }}
+        </div>
+    {% endfor %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="enviar" class="btn btn-success">
+    {% if banda.id %}<a href="{{ path('banda_listar', {id : banda.id}) }}" class="btn btn-danger">borrar</a>{% endif %}
+    {{ form_end(form) }}
+{% endblock %}
