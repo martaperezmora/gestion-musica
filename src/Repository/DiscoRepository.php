@@ -56,4 +56,15 @@ class DiscoRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function save(Disco $disco){
+        $this->getEntityManager()->flush($disco);
+    }
+
+    public function new() : Disco
+    {
+        $disco = new Disco();
+        $this->getEntityManager()->persist($disco);
+        return $disco;
+    }
+
 }
