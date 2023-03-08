@@ -47,4 +47,13 @@ class DiscoRepository extends ServiceEntityRepository
         }
     }
 
+    public function listarDiscos(){
+        return $this->createQueryBuilder('d')
+            ->addSelect('b')
+            ->join('d.banda', 'b')
+            ->orderBy('d.titulo')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
