@@ -56,4 +56,15 @@ class ArtistaRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function save(Artista $artista){
+        $this->getEntityManager()->flush($artista);
+    }
+
+    public function new() : Artista
+    {
+        $artista = new Artista();
+        $this->getEntityManager()->persist($artista);
+        return $artista;
+    }
+
 }

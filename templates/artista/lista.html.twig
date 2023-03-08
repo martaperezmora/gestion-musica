@@ -14,7 +14,7 @@
         </div>
     {% endfor %}
 
-    <a href="{{ path('artista_listar') }}" class="btn btn-primary">nuevo</a>
+    <a href="{{ path('artista_nuevo') }}" class="btn btn-primary">nuevo</a>
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
@@ -43,7 +43,7 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <a href="{{ path('artista_listar', {id : artista.id}) }}" class="btn btn-primary">editar</a>
+                    <a href="{{ path('artista_modificar', {id : artista.id}) }}" class="btn btn-primary">editar</a>
                 </td>
             </tr>
         {% else %}
