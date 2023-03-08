@@ -47,4 +47,13 @@ class BandaRepository extends ServiceEntityRepository
         }
     }
 
+    public function listarBandas(){
+        return $this->createQueryBuilder('b')
+            ->addSelect('a')
+            ->join('b.miembros', 'a')
+            ->orderBy('b.nombre')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

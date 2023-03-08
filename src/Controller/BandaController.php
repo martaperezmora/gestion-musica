@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\BandaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,12 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class BandaController extends AbstractController
 {
     /**
-     * @Route("/banda", name="app_banda")
+     * @Route("/banda/listar", name="banda_listar")
      */
-    public function index(): Response
+    public function index(BandaRepository $bandaRepository): Response
     {
-        return $this->render('banda/index.html.twig', [
-            'controller_name' => 'BandaController',
+        $bandas = $bandaRepository->listarBandas();
+        return $this->render('banda/lista.html.twig', [
+            'bandas' => $bandas,
         ]);
     }
 }

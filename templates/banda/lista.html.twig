@@ -1,20 +1,56 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Hello BandaController!{% endblock %}
+{% block content %}
+    <h1>Bandas</h1>
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% for mensaje in app.flashes('error') %}
+        <div>
+            {{ mensaje }}
+        </div>
+    {% endfor %}
+    {% for mensaje in app.flashes('exito') %}
+        <div>
+            {{ mensaje }}
+        </div>
+    {% endfor %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Juan Antonio/Desktop/Marta/2_DAW/HLC/proyecto/gestion_musica/src/Controller/BandaController.php'|file_link(0) }}">src/Controller/BandaController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Juan Antonio/Desktop/Marta/2_DAW/HLC/proyecto/gestion_musica/templates/banda/lista.html.twig'|file_link(0) }}">templates/banda/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <a href="{{ path('banda_listar') }}" class="btn btn-primary">nuevo</a>
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Año</th>
+            <th>Pais</th>
+            <th>Género</th>
+            <th>Activo</th>
+            <th>Miembros</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for banda in bandas %}
+            <tr>
+                <td>{{ banda.id }}</td>
+                <td>{{ banda.nombre }}</td>
+                <td>{{ banda.anioCreacion }}</td>
+                <td>{{ banda.pais }}</td>
+                <td>{{ banda.genero }}</td>
+                <td>{% if banda.activo %}SÍ{% else %}NO{% endif %}</td>
+                <td>
+                    {% for miembro in banda.miembros %}
+                        {{ miembro }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('banda_listar', {id : banda.id}) }}" class="btn btn-primary">editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <th colspan="5">No hay bandas</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
