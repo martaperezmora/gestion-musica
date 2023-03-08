@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Eliminar</h1>
+    <div class="alert alert-danger">
+        ¿eliminar la banda {{ banda.nombre }}?
+    </div>
+    <form method="POST">
+        <a href="{{ path('banda_listar') }}" class="btn btn-info">Volver</a>
+        <button type="submit" name="eliminar" class="btn btn-danger">borrar</button>
+    </form>
+{% endblock %}

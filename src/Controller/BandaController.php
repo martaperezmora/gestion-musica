@@ -55,4 +55,25 @@ class BandaController extends AbstractController
             'form' => $formulario->createView()
         ]);
     }
+
+    /**
+     * @Route("banda/eliminar/{id}", name="banda_eliminar")
+     */
+    public function eliminarBanda(Request $request, Banda $banda, BandaRepository $bandaRepository) : Response
+    {
+        if($request->getMethod() == 'POST' ){
+            try{
+                $bandaRepository->remove($banda);
+                $this->addFlash('exito', 'banda borrada');
+                return $this->redirect('../../banda/listar');
+            } catch (\Exception $e){
+                $this->addFlash('error', 'no se pudo borrar');
+                return $this->redirect('../../banda/listar');
+            }
+        }
+
+        return $this->render('banda/eliminar.html.twig', [
+            'banda' => $banda
+        ]);
+    }
 }
