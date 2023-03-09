@@ -37,7 +37,7 @@ class ArtistaType extends AbstractType
                 'label' => 'País',
                 'required' => true
             ])
-            ->add('esCompositor', CheckboxType::class, [
+            ->add('compositor', CheckboxType::class, [
                 'label' => '¿Es compositor?',
                 'required' => false
             ])
