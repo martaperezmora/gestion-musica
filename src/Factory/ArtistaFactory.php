@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Artista;
 use App\Repository\ArtistaRepository;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;
@@ -30,13 +31,15 @@ use Zenstruck\Foundry\RepositoryProxy;
 final class ArtistaFactory extends ModelFactory
 {
     /**
-     * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
-     *
-     * @todo inject services if required
+     * @var UserPasswordEncoderInterface
      */
-    public function __construct()
+    private $userPasswordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
     {
         parent::__construct();
+
+        $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
     /**
@@ -47,13 +50,14 @@ final class ArtistaFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'esCompositor' => self::faker()->boolean(30),
+            'compositor' => self::faker()->boolean(30),
             'fechaNacimiento' => self::faker()->dateTimeBetween('-50 years', '-18 years'),
             'nombre' => self::faker()->firstName(),
             'apellidos' => self::faker()->lastName() . ' ' . self::faker()->lastName(),
             'pais' => self::faker()->country(),
             'alias' => self::faker()->unique()->word(),
-
+            'clave' => $this->userPasswordEncoder->encodePassword(new Artista(), '1234'),
+            'admin' => false
         ];
     }
 

@@ -14,6 +14,16 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
 
+        ArtistaFactory::createOne([
+            'nombre' => 'Juan',
+            'apellidos' => 'Moreno Herrera',
+            'alias' => 'admin',
+            'fechaNacimiento' => new \DateTime(),
+            'pais' => 'España',
+            'compositor' => false,
+            'admin' => true
+        ]);
+
         ArtistaFactory::createMany(12);
 
         BandaFactory::createMany(4, function (){
