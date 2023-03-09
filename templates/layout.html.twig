@@ -22,6 +22,14 @@
                     <a class="nav-link" href="{{ path('cancion_listar') }}">Canciones<span class="sr-only">(actual)</span></a>
                 </li>
             </ul>
+            <a class="nav-link" href="{{ path('entrar') }}">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="button">Login</button>
+            </a>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a class="nav-link" href="{{ path('salir') }}">
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="button">Logout</button>
+                </a>
+            {% endif %}
         </div>
     </nav>
 
