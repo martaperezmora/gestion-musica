@@ -13,6 +13,6 @@ class IndexController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstrac
      */
     public function inicio() : Response
     {
-        return $this->redirectToRoute('artista_listar');
+        return $this->redirectToRoute('banda_listar');
     }
 }

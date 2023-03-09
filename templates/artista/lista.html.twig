@@ -44,6 +44,7 @@
                 </td>
                 <td>
                     <a href="{{ path('artista_modificar', {id : artista.id}) }}" class="btn btn-primary">editar</a>
+                    <a href="{{ path('artista_eliminar', {id : artista.id}) }}" class="btn btn-danger">borrar</a>
                 </td>
             </tr>
         {% else %}

@@ -38,6 +38,7 @@
                 <td>{{ disco.canciones | length }}</td>
                 <td>
                     <a href="{{ path('disco_modificar', {id : disco.id}) }}" class="btn btn-primary">editar</a>
+                    <a href="{{ path('disco_eliminar', {id : disco.id}) }}" class="btn btn-danger">borrar</a>
                 </td>
             </tr>
         {% else %}

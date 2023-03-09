@@ -34,6 +34,7 @@
                 <td>{{ cancion.disco }}</td>
                 <td>
                     <a href="{{ path('cancion_modificar', {id : cancion.id}) }}" class="btn btn-primary">editar</a>
+                    <a href="{{ path('cancion_eliminar', {id : cancion.id}) }}" class="btn btn-danger">borrar</a>
                 </td>
             </tr>
         {% else %}
