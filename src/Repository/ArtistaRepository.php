@@ -67,4 +67,8 @@ class ArtistaRepository extends ServiceEntityRepository
         return $artista;
     }
 
+    public function guardar(){
+        $this->getEntityManager()->flush();
+    }
+
 }

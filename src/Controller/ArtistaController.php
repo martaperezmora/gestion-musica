@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Artista;
 use App\Form\ArtistaType;
+use App\Form\CambiarClaveType;
 use App\Repository\ArtistaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ArtistaController extends AbstractController
 {
@@ -75,6 +77,36 @@ class ArtistaController extends AbstractController
 
         return $this->render('artista/eliminar.html.twig', [
             'artista' => $artista
+        ]);
+    }
+
+    /**
+     * @Route("/artista/clave", name="artista_cambiar_clave")
+     */
+    public function cambiarClave(Request $request, UserPasswordEncoderInterface $passwordEncoder, ArtistaRepository $artistaRepository): Response
+    {
+        $form = $this->createForm(CambiarClaveType::class, $this->getUser(), [
+            'admin' => false
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $this->getUser()->setClave(
+                    $passwordEncoder->encodePassword(
+                        $this->getUser(), $form->get('nuevaClave')->get('first')->getData()
+                    )
+                );
+                $artistaRepository->guardar();
+                $this->addFlash('exito', 'Cambios guardados con éxito');
+                return $this->redirectToRoute('inicio');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'No se ha podido guardar');
+            }
+        }
+        return $this->render('artista/clave.html.twig', [
+            'artista' => $this->getUser(),
+            'form' => $form->createView()
         ]);
     }
 }
