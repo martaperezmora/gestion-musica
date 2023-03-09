@@ -5,7 +5,7 @@ security:
             entity:
                 class: 'App\Entity\Artista'
                 property: 'alias'
-    encoder:
+    encoders:
         App\Entity\Artista: 'bcrypt'
     firewalls:
         dev:
@@ -14,6 +14,11 @@ security:
         main:
             anonymous: lazy
             provider: artistas
+            form_login:
+                login_path: entrar
+                check_path: entrar
+            logout:
+                path: salir
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
