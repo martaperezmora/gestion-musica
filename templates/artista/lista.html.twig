@@ -36,7 +36,7 @@
                 <td>{{ artista.apellidos }}</td>
                 <td>{{ artista.fechaNacimiento | date('d/m/Y') }}</td>
                 <td>{{ artista.pais }}</td>
-                <td>{% if artista.esCompositor %}SÍ{% else %}NO{% endif %}</td>
+                <td>{% if artista.compositor %}SÍ{% else %}NO{% endif %}</td>
                 <td>
                     {% for banda in artista.bandas %}
                     {{ banda }}<br>
@@ -49,7 +49,7 @@
             </tr>
         {% else %}
             <tr>
-                <th colspan="5">No hay artistas</th>
+                <th colspan="8">No hay artistas</th>
             </tr>
         {% endfor %}
         </tbody>
