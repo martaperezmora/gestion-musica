@@ -6,11 +6,12 @@ use App\Repository\ArtistaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ArtistaRepository::class)
  */
-class Artista
+class Artista implements UserInterface
 {
     /**
      * @ORM\Id
@@ -33,10 +34,16 @@ class Artista
     private $apellidos;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      * @var string|null
      */
     private $alias;
+
+    /**
+     * @ORM\Column(type="string")
+     * @var string|null
+     */
+    private $clave;
 
     /**
      * @ORM\Column(type="date")
@@ -54,7 +61,13 @@ class Artista
      * @ORM\Column(type="boolean")
      * @var bool
      */
-    private $esCompositor;
+    private $compositor;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @var bool
+     */
+    private $admin;
 
     /**
      * @ORM\ManyToMany(targetEntity="Banda", mappedBy="miembros")
@@ -178,18 +191,18 @@ class Artista
     /**
      * @return bool
      */
-    public function isEsCompositor(): ?bool
+    public function isCompositor(): ?bool
     {
-        return $this->esCompositor;
+        return $this->compositor;
     }
 
     /**
-     * @param bool $esCompositor
+     * @param bool $compositor
      * @return Artista
      */
-    public function setEsCompositor(?bool $esCompositor): Artista
+    public function setCompositor(?bool $compositor): Artista
     {
-        $this->esCompositor = $esCompositor;
+        $this->compositor = $compositor;
         return $this;
     }
 
@@ -211,9 +224,76 @@ class Artista
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getClave(): ?string
+    {
+        return $this->clave;
+    }
+
+    /**
+     * @param string|null $clave
+     * @return Artista
+     */
+    public function setClave(?string $clave): Artista
+    {
+        $this->clave = $clave;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->admin;
+    }
+
+    /**
+     * @param bool $admin
+     * @return Artista
+     */
+    public function setAdmin(bool $admin): Artista
+    {
+        $this->admin = $admin;
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->getNombre().' '.$this->getApellidos();
     }
 
+    public function getRoles()
+    {
+        $roles = ['ROLE_ARTISTA'];
+
+        if ($this->isAdmin()) {
+            $roles[] = 'ROLE_ADMIN';
+        }
+        if ($this->isCompositor()) {
+            $roles[] = 'ROLE_COMPOSITOR';
+        }
+        return $roles;
+    }
+
+    public function getPassword()
+    {
+        return $this->getClave();
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->getAlias();
+    }
+
+    public function eraseCredentials()
+    {
+    }
 }

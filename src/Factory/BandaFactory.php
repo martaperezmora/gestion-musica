@@ -60,7 +60,7 @@ final class BandaFactory extends ModelFactory
             'activo' => self::faker()->boolean(80),
             'anioCreacion' => self::faker()->numberBetween(1990, 2023),
             'genero' => self::faker()->randomElement($generos),
-            'nombre' => self::faker()->text(10),
+            'nombre' => self::faker()->unique()->text(10),
             'pais' => self::faker()->country()
         ];
     }

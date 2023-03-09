@@ -52,7 +52,7 @@ final class ArtistaFactory extends ModelFactory
             'nombre' => self::faker()->firstName(),
             'apellidos' => self::faker()->lastName() . ' ' . self::faker()->lastName(),
             'pais' => self::faker()->country(),
-            'alias' => self::faker()->boolean(60) ? self::faker()->word() : null,
+            'alias' => self::faker()->unique()->word(),
 
         ];
     }
