@@ -56,4 +56,25 @@ class CancionController extends AbstractController
             'form' => $formulario->createView()
         ]);
     }
+
+    /**
+     * @Route("cancion/eliminar/{id}", name="cancion_eliminar")
+     */
+    public function eliminarCancion(Request $request, Cancion $cancion, CancionRepository $dancionRepository) : Response
+    {
+        if($request->getMethod() == 'POST' ){
+            try{
+                $dancionRepository->remove($cancion);
+                $this->addFlash('exito', 'cancion borrada');
+                return $this->redirect('../../cancion/listar');
+            } catch (\Exception $e){
+                $this->addFlash('error', 'no se pudo borrar');
+                return $this->redirect('../../cancion/listar');
+            }
+        }
+
+        return $this->render('cancion/eliminar.html.twig', [
+            'cancion' => $cancion
+        ]);
+    }
 }
