@@ -1,14 +1,19 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        artistas:
+            entity:
+                class: 'App\Entity\Artista'
+                property: 'alias'
+    encoder:
+        App\Entity\Artista: 'bcrypt'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: lazy
-            provider: users_in_memory
+            provider: artistas
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
