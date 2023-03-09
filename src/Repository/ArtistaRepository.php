@@ -50,7 +50,7 @@ class ArtistaRepository extends ServiceEntityRepository
     public function listarArtistas(){
         return $this->createQueryBuilder('a')
             ->addSelect('b')
-            ->join('a.bandas', 'b')
+            ->leftJoin('a.bandas', 'b')
             ->orderBy('a.nombre')
             ->getQuery()
             ->getResult();

@@ -22,10 +22,10 @@ class ArtistaType extends AbstractType
                 'label' => 'Alias',
                 'required' => false
             ])
-            /*->add('clave', PasswordType::class, [
+            ->add('clave', PasswordType::class, [
                 'label' => 'Contraseña',
                 'required' => true
-            ])*/
+            ])
             ->add('nombre', TextType::class, [
                 'label' => 'Nombre',
                 'required' => true
@@ -44,6 +44,10 @@ class ArtistaType extends AbstractType
             ])
             ->add('compositor', CheckboxType::class, [
                 'label' => '¿Es compositor?',
+                'required' => false
+            ])
+            ->add('admin', CheckboxType::class, [
+                'label' => '¿Es administrador?',
                 'required' => false
             ])
 

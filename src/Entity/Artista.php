@@ -71,7 +71,7 @@ class Artista implements UserInterface
 
     /**
      * @ORM\ManyToMany(targetEntity="Banda", mappedBy="miembros")
-     * @var Banda[]|Collection
+     * @var Banda[]|Collection|null
      */
     private $bandas;
 
@@ -207,7 +207,7 @@ class Artista implements UserInterface
     }
 
     /**
-     * @return Banda[]|ArrayCollection|Collection
+     * @return Banda[]|ArrayCollection|Collection|null
      */
     public function getBandas()
     {
@@ -215,7 +215,8 @@ class Artista implements UserInterface
     }
 
     /**
-     * @param Banda[]|ArrayCollection|Collection $bandas
+     * @param Banda[]|ArrayCollection|Collection|null $bandas
+     * @ORM\Column(nullable=true)
      * @return Artista
      */
     public function setBandas($bandas)
@@ -245,7 +246,7 @@ class Artista implements UserInterface
     /**
      * @return bool
      */
-    public function isAdmin(): bool
+    public function isAdmin(): ?bool
     {
         return $this->admin;
     }
@@ -254,7 +255,7 @@ class Artista implements UserInterface
      * @param bool $admin
      * @return Artista
      */
-    public function setAdmin(bool $admin): Artista
+    public function setAdmin(?bool $admin): Artista
     {
         $this->admin = $admin;
         return $this;
