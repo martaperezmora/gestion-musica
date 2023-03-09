@@ -28,6 +28,7 @@ class CancionController extends AbstractController
      */
     public function nuevoCancion(Request $request, CancionRepository $cancionRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_COMPOSITOR');
         $cancion = $cancionRepository->new();
 
         return $this->modificarCancion($request, $cancion, $cancionRepository);
@@ -38,6 +39,7 @@ class CancionController extends AbstractController
      */
     public function modificarCancion(Request $request, Cancion $cancion, CancionRepository $cancionRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_COMPOSITOR');
         $formulario = $this->createForm(CancionType::class, $cancion);
 
         $formulario->handleRequest($request);
@@ -62,6 +64,7 @@ class CancionController extends AbstractController
      */
     public function eliminarCancion(Request $request, Cancion $cancion, CancionRepository $dancionRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if($request->getMethod() == 'POST' ){
             try{
                 $dancionRepository->remove($cancion);

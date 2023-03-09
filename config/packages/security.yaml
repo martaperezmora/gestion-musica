@@ -19,6 +19,7 @@ security:
                 check_path: entrar
             logout:
                 path: salir
+
     role_hierarchy:
         ROLE_ADMIN: [ 'ROLE_COMPOSITOR' ]
         ROLE_COMPOSITOR: [ 'ROLE_ARTISTA' ]

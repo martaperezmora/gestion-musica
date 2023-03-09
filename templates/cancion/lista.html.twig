@@ -14,7 +14,9 @@
         </div>
     {% endfor %}
 
+    {% if is_granted('ROLE_COMPOSITOR') %}
     <a href="{{ path('cancion_nuevo') }}" class="btn btn-primary">nuevo</a>
+    {% endif %}
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
@@ -33,8 +35,12 @@
                 <td>{{ cancion.duracion }}</td>
                 <td>{{ cancion.disco }}</td>
                 <td>
+                    {% if is_granted('ROLE_COMPOSITOR') %}
                     <a href="{{ path('cancion_modificar', {id : cancion.id}) }}" class="btn btn-primary">editar</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('cancion_eliminar', {id : cancion.id}) }}" class="btn btn-danger">borrar</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

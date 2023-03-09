@@ -28,6 +28,7 @@ class DiscoController extends AbstractController
      */
     public function nuevoDisco(Request $request, DiscoRepository $discoRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_COMPOSITOR');
         $disco = $discoRepository->new();
 
         return $this->modificarDisco($request, $disco, $discoRepository);
@@ -38,6 +39,7 @@ class DiscoController extends AbstractController
      */
     public function modificarDisco(Request $request, Disco $disco, DiscoRepository $discoRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_COMPOSITOR');
         $formulario = $this->createForm(DiscoType::class, $disco);
 
         $formulario->handleRequest($request);
@@ -62,6 +64,7 @@ class DiscoController extends AbstractController
      */
     public function eliminarDisco(Request $request, Disco $disco, DiscoRepository $discoRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if($request->getMethod() == 'POST' ){
             try{
                 $discoRepository->remove($disco);

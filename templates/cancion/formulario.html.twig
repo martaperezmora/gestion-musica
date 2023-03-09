@@ -10,6 +10,8 @@
     {{ form_widget(form) }}
     <a href="{{ path('cancion_listar') }}" class="btn btn-info">Volver</a>
     <input type="submit" value="enviar" class="btn btn-success">
-    {% if cancion.id %}<a href="{{ path('cancion_eliminar', {id : cancion.id}) }}" class="btn btn-danger">borrar</a>{% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        {% if cancion.id %}<a href="{{ path('cancion_eliminar', {id : cancion.id}) }}" class="btn btn-danger">borrar</a>{% endif %}
+    {% endif %}
     {{ form_end(form) }}
 {% endblock %}

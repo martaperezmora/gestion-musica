@@ -26,8 +26,9 @@ class BandaController extends AbstractController
     /**
      * @Route("/banda/nuevo", name="banda_nuevo")
      */
-    public function nuevoArtista(Request $request, BandaRepository $bandaRepository): Response
+    public function nuevaBanda(Request $request, BandaRepository $bandaRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_COMPOSITOR');
         $banda = $bandaRepository->new();
 
         return $this->modificarBanda($request, $banda, $bandaRepository);
@@ -38,6 +39,7 @@ class BandaController extends AbstractController
      */
     public function modificarBanda(Request $request, Banda $banda, BandaRepository $bandaRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $formulario = $this->createForm(BandaType::class, $banda);
 
         $formulario->handleRequest($request);
@@ -61,6 +63,7 @@ class BandaController extends AbstractController
      */
     public function eliminarBanda(Request $request, Banda $banda, BandaRepository $bandaRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if($request->getMethod() == 'POST' ){
             try{
                 $bandaRepository->remove($banda);

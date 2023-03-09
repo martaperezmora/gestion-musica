@@ -30,6 +30,7 @@ class ArtistaController extends AbstractController
      */
     public function nuevoArtista(Request $request, ArtistaRepository $artistaRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ARTISTA');
         $artista = $artistaRepository->new();
 
         return $this->modificarArtista($request, $artista, $artistaRepository);
@@ -40,6 +41,7 @@ class ArtistaController extends AbstractController
      */
     public function modificarArtista(Request $request, Artista $artista, ArtistaRepository $artistaRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $formulario = $this->createForm(ArtistaType::class, $artista);
 
         $formulario->handleRequest($request);
@@ -64,6 +66,7 @@ class ArtistaController extends AbstractController
      */
     public function eliminarArtista(Request $request, Artista $artista, ArtistaRepository $artistaRepository) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         if($request->getMethod() == 'POST' ){
             try{
                 $artistaRepository->remove($artista);
@@ -85,8 +88,9 @@ class ArtistaController extends AbstractController
      */
     public function cambiarClave(Request $request, UserPasswordEncoderInterface $passwordEncoder, ArtistaRepository $artistaRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ARTISTA');
         $form = $this->createForm(CambiarClaveType::class, $this->getUser(), [
-            'admin' => false
+            'admin' => $this->isGranted('ROLE_ADMIN')
         ]);
         $form->handleRequest($request);
 

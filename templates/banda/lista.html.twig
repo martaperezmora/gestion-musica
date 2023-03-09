@@ -14,7 +14,9 @@
         </div>
     {% endfor %}
 
+    {% if is_granted('ROLE_ARTISTA') %}
     <a href="{{ path('banda_nuevo') }}" class="btn btn-primary">nuevo</a>
+    {% endif %}
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
@@ -43,8 +45,10 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <a href="{{ path('banda_modificar', {id : banda.id}) }}" class="btn btn-primary">editar</a>
-                    <a href="{{ path('banda_eliminar', {id : banda.id}) }}" class="btn btn-danger">borrar</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('banda_modificar', {id : banda.id}) }}" class="btn btn-primary">editar</a>
+                        <a href="{{ path('banda_eliminar', {id : banda.id}) }}" class="btn btn-danger">borrar</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

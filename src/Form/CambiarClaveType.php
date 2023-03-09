@@ -25,7 +25,9 @@ class CambiarClaveType extends AbstractType
                         new UserPassword(),
                         new NotBlank()
                     ]
-                ])
+                ]);
+        }
+        $builder
                 ->add('nuevaClave', RepeatedType::class, [
                     'label' => 'Nueva contraseña',
                     'required' => true,
@@ -45,7 +47,7 @@ class CambiarClaveType extends AbstractType
                         'required' => true
                     ]
                 ]);
-        }
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
