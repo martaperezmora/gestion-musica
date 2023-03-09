@@ -33,7 +33,7 @@ class DiscoType extends AbstractType
             ->add('tipo', ChoiceType::class, [
                 'label' => 'Tipo',
                 'required' => true,
-                'expanded' => true,
+                'expanded' => false,
                 'choices'  => [
                     'Älbum' => false,
                     'EP' => false,

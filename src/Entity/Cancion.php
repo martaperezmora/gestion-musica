@@ -82,7 +82,7 @@ class Cancion
     /**
      * @return string
      */
-    public function getDuracion(): string
+    public function getDuracion(): ?string
     {
         return $this->duracion;
     }
@@ -91,7 +91,7 @@ class Cancion
      * @param string $duracion
      * @return Cancion
      */
-    public function setDuracion(string $duracion): Cancion
+    public function setDuracion(?string $duracion): Cancion
     {
         $this->duracion = $duracion;
         return $this;

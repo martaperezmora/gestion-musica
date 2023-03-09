@@ -57,4 +57,14 @@ class CancionRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function save(Cancion $cancion){
+        $this->getEntityManager()->flush($cancion);
+    }
+
+    public function new() : Cancion
+    {
+        $cancion = new Cancion();
+        $this->getEntityManager()->persist($cancion);
+        return $cancion;
+    }
 }
